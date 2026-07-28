@@ -52,16 +52,15 @@
         async function loadDecree() {
             const container = document.getElementById("decree-view");
             
-            // Holt die ID aus dem URL-Pfad (alles nach /dekrete/)
-            const pathSegments = window.location.pathname.split('/').filter(Boolean);
-            const dekreteIndex = pathSegments.indexOf('dekrete');
-            const docId = dekreteIndex !== -1 ? pathSegments[dekreteIndex + 1] : null;
+            // Liest die ID aus dem Query-Parameter ?id=... aus (kompatibel mit GitHub Pages)
+            const urlParams = new URLSearchParams(window.location.search);
+            const docId = urlParams.get('id');
 
             if (!docId) {
                 container.innerHTML = `
-                    <h1>Archiv-Übersicht</h1>
-                    <p class="meta">Es wurde keine spezifische Dekret-ID angegeben.</p>
-                    <a href="https://regierung.gurkistan.org" class="back-link">← Zurück zur Startseite</a>
+                    <h1>Fehler</h1>
+                    <p class="meta">Es wurde keine gültige Dekret-ID übergeben.</p>
+                    <a href="../index.html" class="back-link">← Zurück zur Übersicht</a>
                 `;
                 return;
             }
@@ -73,7 +72,7 @@
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     container.innerHTML = `
-                        <a href="/" class="back-link">← Zurück zur Übersicht</a>
+                        <a href="../index.html" class="back-link">← Zurück zur Übersicht</a>
                         <div><span class="badge">Amtliches Dekret</span></div>
                         <h1>${escapeHtml(data.title)}</h1>
                         <div class="meta">Veröffentlicht am ${escapeHtml(data.date)}</div>
@@ -84,7 +83,7 @@
                     container.innerHTML = `
                         <h1 style="color: #dc2626;">Dekret nicht gefunden</h1>
                         <p class="meta">Das angeforderte Staatsdokument existiert nicht oder wurde aus dem Archiv entfernt.</p>
-                        <a href="https://regierung.gurkistan.org" class="back-link">Zurück zur Hauptseite</a>
+                        <a href="../index.html" class="back-link">Zurück zur Hauptseite</a>
                     `;
                 }
             } catch (err) {
@@ -93,15 +92,9 @@
             }
         }
 
-        // Einfacher Schutz vor HTML-Injection in den Texten
         function escapeHtml(text) {
             if (!text) return "";
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
         loadDecree();
