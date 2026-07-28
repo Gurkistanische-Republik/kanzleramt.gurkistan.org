@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staatsdekret | Bundeskanzleramt Gurkistan</title>
+    <title>Staatsdekret | Das Bundeskanzleramt</title>
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/dotgurkistan/archive/refs/heads/main/bilder/Gurkistan-64.png">
     <style>
         :root {
             --primary: #0f5132;
+            --primary-light: #e8f5e9;
             --text: #1e293b;
             --text-muted: #64748b;
             --bg-body: #f8fafc;
@@ -20,7 +21,7 @@
         .decree-container { width: 100%; max-width: 700px; background: var(--bg-card); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid #e2e8f0; }
         h1 { color: var(--primary); font-size: 2rem; margin-bottom: 12px; font-weight: 800; }
         .meta { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; font-weight: 500; }
-        .badge { font-size: 0.85rem; color: var(--primary); background: #e8f5e9; padding: 4px 10px; border-radius: 6px; font-weight: 700; text-transform: uppercase; display: inline-block; margin-bottom: 12px; }
+        .badge { font-size: 0.85rem; color: var(--primary); background: var(--primary-light); padding: 4px 10px; border-radius: 6px; font-weight: 700; text-transform: uppercase; display: inline-block; margin-bottom: 12px; }
         hr { border: none; border-top: 1px solid #e2e8f0; margin-bottom: 24px; }
         .content { font-size: 1.1rem; line-height: 1.7; color: #334155; white-space: pre-wrap; }
         .back-link { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-weight: 600; }
@@ -52,7 +53,6 @@
         async function loadDecree() {
             const container = document.getElementById("decree-view");
             
-            // Liest die ID aus dem Query-Parameter ?id=... aus (kompatibel mit GitHub Pages)
             const urlParams = new URLSearchParams(window.location.search);
             const docId = urlParams.get('id');
 
@@ -60,7 +60,7 @@
                 container.innerHTML = `
                     <h1>Fehler</h1>
                     <p class="meta">Es wurde keine gültige Dekret-ID übergeben.</p>
-                    <a href="../index.html" class="back-link">← Zurück zur Übersicht</a>
+                    <a href="../index.html" class="back-link">← Zurück zum Kanzleramt</a>
                 `;
                 return;
             }
@@ -72,7 +72,7 @@
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     container.innerHTML = `
-                        <a href="../index.html" class="back-link">← Zurück zur Übersicht</a>
+                        <a href="../index.html" class="back-link">← Zurück zum Kanzleramt</a>
                         <div><span class="badge">Amtliches Dekret</span></div>
                         <h1>${escapeHtml(data.title)}</h1>
                         <div class="meta">Veröffentlicht am ${escapeHtml(data.date)}</div>
@@ -82,8 +82,8 @@
                 } else {
                     container.innerHTML = `
                         <h1 style="color: #dc2626;">Dekret nicht gefunden</h1>
-                        <p class="meta">Das angeforderte Staatsdokument existiert nicht oder wurde aus dem Archiv entfernt.</p>
-                        <a href="../index.html" class="back-link">Zurück zur Hauptseite</a>
+                        <p class="meta">Das angeforderte Staatsdokument existiert nicht oder wurde entfernt.</p>
+                        <a href="../index.html" class="back-link">← Zurück zum Kanzleramt</a>
                     `;
                 }
             } catch (err) {

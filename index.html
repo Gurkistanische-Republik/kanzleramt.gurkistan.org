@@ -3,51 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staatsarchiv | Bundeskanzleramt Gurkistan</title>
+    <title>Das Bundeskanzleramt | Gurkistan</title>
+    <!-- Offizielles Gurkistan Favicon -->
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/dotgurkistan/archive/refs/heads/main/bilder/Gurkistan-64.png">
     <style>
         :root {
             --primary: #0f5132;
+            --primary-light: #e8f5e9;
             --text: #1e293b;
             --text-muted: #64748b;
             --bg-body: #f8fafc;
             --bg-card: #ffffff;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
             --radius: 12px;
         }
+        
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: system-ui, -apple-system, sans-serif; color: var(--text); background-color: var(--bg-body); padding: 40px 20px; }
-        .container { max-width: 800px; margin: 0 auto; }
-        h1 { color: var(--primary); font-size: 2rem; margin-bottom: 8px; font-weight: 800; }
-        .subtitle { color: var(--text-muted); margin-bottom: 32px; font-size: 1rem; }
-        .card { background: var(--bg-card); padding: 20px 24px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid #e2e8f0; margin-bottom: 16px; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-2px); }
-        .card h2 { font-size: 1.25rem; color: var(--primary); margin-bottom: 6px; }
-        .card .date { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
-        .card a { display: inline-block; color: white; background: var(--primary); padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
-        .card a:hover { background: #0b3d24; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .btn-write { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); line-height: 1.5; background-color: var(--bg-body); }
+        
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+        .skip-link { position: absolute; top: -50px; left: 20px; background: var(--primary); color: white; padding: 10px 20px; z-index: 100; border-radius: 0 0 8px 8px; text-decoration: none; font-weight: bold; transition: top 0.2s; }
+        .skip-link:focus { top: 0; outline: 3px solid var(--text); }
+
+        header { background: var(--bg-card); box-shadow: var(--shadow); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+        .logo-area { display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit; }
+        .logo-icon { width: 48px; height: 48px; object-fit: contain; }
+        .logo-text h1 { font-size: 1.35rem; color: var(--primary); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; }
+        .logo-text p { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+
+        nav ul { display: flex; list-style: none; gap: 8px; }
+        nav a { color: var(--text); text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 8px 16px; border-radius: 8px; transition: all 0.2s; }
+        nav a:hover, nav a:focus { background-color: var(--primary-light); color: var(--primary); outline: none; }
+        nav a[aria-current="page"] { background-color: var(--primary); color: white; }
+
+        main { max-width: 1200px; margin: 48px auto; padding: 0 24px; }
+        
+        .kanzler-section { 
+            display: flex; 
+            gap: 48px; 
+            background-color: var(--bg-card); 
+            padding: 48px; 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow);
+            margin-bottom: 48px; 
+            align-items: center; 
+            border: 1px solid #e2e8f0;
+        }
+        .kanzler-portrait { 
+            width: 140px; 
+            height: 140px; 
+            background: var(--primary-light); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            flex-shrink: 0;
+            padding: 16px;
+        }
+        .kanzler-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .kanzler-info h2 { font-size: 2rem; color: var(--primary); margin-bottom: 12px; font-weight: 800; letter-spacing: -0.5px; }
+        .kanzler-info p { color: #334155; font-size: 1.05rem; }
+        
+        .section-title { font-size: 1.75rem; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.5px; }
+
+        .decree-box { background: var(--bg-card); border: 1px solid #e2e8f0; border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 32px; margin-bottom: 48px; }
+        .decree-list { list-style: none; }
+        .decree-item { border-bottom: 1px solid #e2e8f0; padding: 24px 0; }
+        .decree-item:last-child { border-bottom: none; }
+        .decree-date { font-size: 0.85rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .decree-title { font-size: 1.25rem; color: var(--primary); font-weight: 700; text-decoration: none; display: inline-block; margin-bottom: 8px; }
+        .decree-title:hover { text-decoration: underline; }
+        .decree-item p { color: var(--text-muted); font-size: 0.95rem; }
+
+        .law-section { background: var(--bg-card); border: 1px solid #e2e8f0; border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px; margin-bottom: 48px; }
+        .law-section h3 { font-size: 1.35rem; color: var(--primary); margin-top: 24px; margin-bottom: 12px; font-weight: 700; }
+        .law-section h3:first-of-type { margin-top: 0; }
+        .law-section p { margin-bottom: 12px; color: #334155; }
+        .law-source-note { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+
+        footer { background-color: var(--bg-card); margin-top: 96px; padding: 48px 5%; border-top: 1px solid #e2e8f0; font-size: 0.9rem; color: var(--text-muted); }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+        .footer-nav { display: flex; gap: 24px; list-style: none; }
+        .footer-nav a { color: var(--text-muted); text-decoration: none; font-weight: 500; }
+
+        @media (max-width: 768px) {
+            .kanzler-section { flex-direction: column; text-align: center; padding: 32px; gap: 24px; }
+            header { flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px; }
+            nav ul { width: 100%; flex-direction: column; gap: 4px; }
+            nav a { display: block; }
+            .footer-container { flex-direction: column; align-items: flex-start; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="top-bar">
-            <div>
-                <h1>Staatsarchiv</h1>
-                <p class="subtitle">Offizielle Dekrete des Bundeskanzleramts Gurkistan</p>
+
+    <a class="skip-link" href="#main-content">Direkt zum Inhalt springen</a>
+
+    <header role="banner">
+        <a href="https://regierung.gurkistan.org" class="logo-area" aria-label="Zurück zum Regierungsportal">
+            <img class="logo-icon" src="https://raw.githubusercontent.com/dotgurkistan/archive/refs/heads/main/bilder/Gurkistan-128.png" alt="Wappen des Bundeskanzleramts">
+            <div class="logo-text">
+                <h1>Das Bundeskanzleramt</h1>
+                <p>Regierungschef Plankton</p>
             </div>
-            <a href="./schreiben.html" class="btn-write">+ Dekret verfassen</a>
-        </div>
+        </a>
+        <nav role="navigation" aria-label="Hauptmenü">
+            <ul>
+                <li><a href="https://regierung.gurkistan.org">Regierungsportal</a></li>
+                <li><a href="https://kanzleramt.gurkistan.org" aria-current="page">Der Kanzler</a></li>
+                <li><a href="https://kanzleramt.gurkistan.org/reden">Reden</a></li>
+                <li><a href="https://kanzleramt.gurkistan.org/termine">Termine</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <div id="decree-list">
-            <p>Lade Dekrete aus dem Archiv...</p>
-        </div>
-    </div>
+    <main id="main-content" role="main">
+        <section class="kanzler-section">
+            <div class="kanzler-portrait">
+                <img src="https://raw.githubusercontent.com/dotgurkistan/archive/refs/heads/main/bilder/Gurkistan-128.png" alt="Offizielles Staatssiegel">
+            </div>
+            <div class="kanzler-info">
+                <h2>Bundeskanzler Plankton</h2>
+                <p>Seit der Staatsgründung lenkt Bundeskanzler Plankton visionär die Geschicke der Mikronation Gurkistan. Gemäß Artikel 1 der Verfassung obliegt ihm die alleinige und unantastbare Richtlinienkompetenz für alle innen-, außen- und küchenpolitischen Angelegenheiten.</p>
+            </div>
+        </section>
 
+        <section aria-labelledby="decrees-heading">
+            <h2 id="decrees-heading" class="section-title">Aktuelle Richtlinien und Dekrete des Kanzlers</h2>
+            <div class="decree-box">
+                <ul id="decree-list-container" class="decree-list">
+                    <li class="decree-item">
+                        <p>Lade Richtlinien aus dem Staatsarchiv...</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section aria-labelledby="laws-heading">
+            <h2 id="laws-heading" class="section-title">Das Offizielle Gesetzbuch von Gurkistan</h2>
+            <div class="law-section">
+                <p class="law-source-note">Hier ist das vollständige, offizielle und im Universum von Plankton anerkannte Gesetzbuch von Gurkistan, aufgeteilt in die Verfassung, das Strafgesetzbuch (StGB-G) und das Verkehrsrecht. Da Gurkistan eine absolute Monarchie (unter Diktator Plankton) ist, entstehen neue Gesetze direkt per Dekret in seinen YouTube-Videos oder durch Beschlüsse der Community im Subreddit <a href="https://www.reddit.com/r/gurkistan" target="_blank" rel="noopener">r/gurkistan</a>.</p>
+
+                <h3>Die Verfassung von Gurkistan (Das Grundgesetz)</h3>
+                <p><strong>Artikel 1:</strong> Die Staatsform – Gurkistan ist eine absolute, demokratische Monarchie (auch als „Plankton-Diktatur“ bezeichnet).</p>
+                <p><strong>Artikel 2:</strong> Der Herrscher – Plankton ist das unantastbare Staatsoberhaupt. Seine Worte sind sofortiges Gesetz.</p>
+                <p><strong>Artikel 3:</strong> Das Staatsziel – Das oberste Ziel der Nation ist die (humorvolle) Weltherrschaft der Gurken.</p>
+                <p><strong>Artikel 4:</strong> Die Währung – Offizielles Zahlungsmittel ist die Gurke (oft repräsentiert durch das Cent-Stück).</p>
+                <p><strong>Artikel 5:</strong> Die Nationalhymne – Das Absingen von „Die Augen hoch zu Gurkistan“ ist bei offiziellen Anlässen Pflicht. Die Hand ist dabei auf die Gurke (oder das Herz) zu legen.</p>
+
+                <h3>Das Gurkistanische Strafgesetzbuch (StGB-G)</h3>
+                <p><strong>§ 1 Das Wurst-Plagiat-Verbot:</strong> Es ist streng verboten, die geschützte „Weberwurst“ illegal nachzubauen, zu kopieren oder unter falschem Namen zu verkaufen.</p>
+                <p><strong>§ 2 Das Krümmungsgesetz:</strong> Alle Gurken im Land müssen der staatlich festgelegten Mindestkrümmung entsprechen. Zu gerade oder zu krumme Gurken gelten als illegal.</p>
+                <p><strong>§ 3 Das Tomaten-Verbot:</strong> Da Tomaten die natürlichen Erzfeinde der Gurken sind, ist das Einschmuggeln oder Bewerben von Tomaten-Propaganda im Inland eine schwere Straftat.</p>
+                <p><strong>§ 4 Die Ausweispflicht:</strong> Jeder Einwohner muss seinen digitalen Personalausweis (oder Reisepass) mit sich führen. Wer den „schvächsten Pass der Welt“ verliert, verliert vorübergehend seine Bürgerrechte.</p>
+                <p><strong>§ 5 Das Majestätsbeleidigungsverbot:</strong> Witze über die Größe, Stimme oder das Erscheinen von Herrscher Plankton werden direkt mit Zwangsarbeit im Gurkenbeet bestraft.</p>
+                <p><strong>§ 6 Die Steuerpflicht:</strong> Steuern müssen pünktlich in Gurkenform oder in der Währung Gg entrichtet werden. Steuerhinterziehung führt zur sofortigen Enteignung aller Gemüsevorräte.</p>
+
+                <h3>Das Verkehrs- und Ordnungsrecht (VwO)</h3>
+                <p><strong>§ 7 Kennzeichenordnung:</strong> Jedes Fahrzeug muss ein gültiges, gurkistanisches Nummernschild besitzen. Das unbefugte Fahren mit ausländischen Schildern ist untersagt.</p>
+                <p><strong>§ 8 Das Ampel-Gebot:</strong> Ampeln zeigen in Gurkistan vor allem Grün (für Gurken). Wer bei Rot fährt, muss zur Strafe eine Woche lang Gurkenwasser trinken.</p>
+                <p><strong>§ 9 Grenz- und Einreisekontrolle:</strong> Die Einreise ist nur mit gültigem Visum gestattet. Touristen müssen beim Zoll versichern, dass sie keine Salatsoßen mitbringen, die Essig enthalten (Gefahr für die Bevölkerung).</p>
+
+                <h3>Offizielle Normungen (DIN-G)</h3>
+                <p><strong>Die Flaggen-Norm:</strong> Die offizielle Nationalflagge (Grün mit dem Gurken-Emblem) ist exakt nach den im Subreddit <a href="https://www.reddit.com/r/gurkistan" target="_blank" rel="noopener">r/gurkistan</a> beschlossenen Pixel-Maßen zu führen. Jede Abweichung der Farbtöne gilt als Flaggenschändung.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-container">
+            <ul class="footer-nav">
+                <li><a href="https://regierung.gurkistan.org">Zur Hauptseite</a></li>
+                <li><a href="https://alexgaming.is-a.dev/impressum">Impressum</a></li>
+                <li><a href="https://alexgaming.is-a.dev/privacy/">Datenschutz</a></li>
+            </ul>
+            <p>&copy; 2026 Das Bundeskanzleramt von Gurkistan.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDKs & Logik -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyC7dAlRCiU4N1zjweZtx9shtP8JVi-3RYw",
@@ -60,42 +202,41 @@
         };
 
         const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
         const db = getFirestore(app);
 
         async function loadDecrees() {
-            const listContainer = document.getElementById("decree-list");
-
+            const container = document.getElementById("decree-list-container");
             try {
-                const q = query(collection(db, "dekrete"), orderBy("timestamp", "desc"));
-                const querySnapshot = await getDocs(q);
-
+                const querySnapshot = await getDocs(collection(db, "dekrete"));
                 if (querySnapshot.empty) {
-                    listContainer.innerHTML = "<p>Bisher wurden keine Dekrete im Archiv hinterlegt.</p>";
+                    container.innerHTML = '<li class="decree-item"><p>Derzeit liegen keine aktiven Dekrete vor.</p></li>';
                     return;
                 }
-
-                let html = "";
+                
+                container.innerHTML = "";
                 querySnapshot.forEach((docSnap) => {
                     const data = docSnap.data();
-                    html += `
-                        <div class="card">
-                            <h2>${escapeHtml(data.title)}</h2>
-                            <div class="date">Veröffentlicht am ${escapeHtml(data.date)}</div>
-                            <a href="./dekrete/index.html?id=${docSnap.id}">Dekret lesen →</a>
-                        </div>
+                    
+                    // Automatische Korrektur/Erstellung des Links auf dekrete/?id=ID
+                    let decreeUrl = data.url;
+                    if (!decreeUrl || !decreeUrl.includes('?id=')) {
+                        decreeUrl = `./dekrete/?id=${docSnap.id}`;
+                    }
+
+                    const li = document.createElement("li");
+                    li.className = "decree-item";
+                    li.innerHTML = `
+                        <div class="decree-date">${data.date || "Unbekanntes Datum"}</div>
+                        <a href="${decreeUrl}" class="decree-title">${data.title || "Titel los"}</a>
+                        <p>${data.description || ""}</p>
                     `;
+                    container.appendChild(li);
                 });
-                listContainer.innerHTML = html;
-
-            } catch (err) {
-                console.error("Fehler beim Laden der Liste:", err);
-                listContainer.innerHTML = "<p style='color: #dc2626;'>Fehler beim Abrufen der Dekrete aus der Datenbank.</p>";
+            } catch (error) {
+                console.error("Fehler beim Laden der Dekrete: ", error);
+                container.innerHTML = '<li class="decree-item"><p>Fehler beim Abrufen der Staatsdokumente.</p></li>';
             }
-        }
-
-        function escapeHtml(text) {
-            if (!text) return "";
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
         loadDecrees();

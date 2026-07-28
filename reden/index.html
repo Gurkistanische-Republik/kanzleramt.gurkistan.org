@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reden & Ansprachen | Das Bundeskanzleramt</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/dotgurkistan/archive/refs/heads/main/bilder/Gurkistan-64.png">
+    <style>
+        :root {
+            --primary: #0f5132;
+            --primary-light: #e8f5e9;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --radius: 12px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); line-height: 1.5; background-color: var(--bg-body); }
+        header { background: var(--bg-card); box-shadow: var(--shadow); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+        .logo-area { display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit; }
+        .logo-icon { width: 48px; height: 48px; object-fit: contain; }
+        .logo-text h1 { font-size: 1.35rem; color: var(--primary); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; }
+        .logo-text p { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+        nav ul { display: flex; list-style: none; gap: 8px; }
+        nav a { color: var(--text); text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 8px 16px; border-radius: 8px; transition: all 0.2s; }
+        nav a:hover { background-color: var(--primary-light); color: var(--primary); }
+        nav a[aria-current="page"] { background-color: var(--primary); color: white; }
+        main { max-width: 1200px; margin: 48px auto; padding: 0 24px; }
+        .section-title { font-size: 1.75rem; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.5px; }
+        .speech-box { background: var(--bg-card); border: 1px solid #e2e8f0; border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px; }
+        .speech-list { list-style: none; }
+        .speech-item { border-bottom: 1px solid #e2e8f0; padding: 20px 0; }
+        .speech-item:last-child { border-bottom: none; }
+        .speech-date { font-size: 0.85rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+        .speech-title { font-size: 1.25rem; color: var(--primary); font-weight: 700; text-decoration: none; display: inline-block; margin-bottom: 6px; }
+        .speech-title:hover { text-decoration: underline; }
+        .speech-item p { color: var(--text-muted); font-size: 0.95rem; }
+        footer { background-color: var(--bg-card); margin-top: 96px; padding: 48px 5%; border-top: 1px solid #e2e8f0; font-size: 0.9rem; color: var(--text-muted); }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+        .footer-nav { display: flex; gap: 24px; list-style: none; }
+        .footer-nav a { color: var(--text-muted); text-decoration: none; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <header role="banner">
+        <a href="https://regierung.gurkistan.org" class="logo-area">
+            <img class="logo-icon" src="https://raw.githubusercontent.com/dotgurkistan/archive/refs/heads/main/bilder/Gurkistan-128.png" alt="Wappen">
+            <div class="logo-text">
+                <h1>Das Bundeskanzleramt</h1>
+                <p>Regierungschef Plankton</p>
+            </div>
+        </a>
+        <nav role="navigation">
+            <ul>
+                <li><a href="https://regierung.gurkistan.org">Regierungsportal</a></li>
+                <li><a href="https://kanzleramt.gurkistan.org">Der Kanzler</a></li>
+                <li><a href="https://kanzleramt.gurkistan.org/reden" aria-current="page">Reden</a></li>
+                <li><a href="https://kanzleramt.gurkistan.org/termine">Termine</a></li>
+            </ul>
+        </nav>
+    </header>
+    </header>
+    <main role="main">
+        <h2 class="section-title">Offizielle Ansprachen und Reden des Kanzlers (Ab dem 01.08.2026)</h2>
+        <div class="speech-box">
+            <ul class="speech-list">
+				<li class="speech-item">
+                    <div class="speech-date">15. Juni 2026</div>
+                    <a href="https://regierung.gurkistan.org" class="speech-title">← Zum Start</a>
+                    <p>Aktuell keine Reden verfügbar.</p>
+                </li>
+            </ul>
+        </div>
+    </main>
+    <footer role="contentinfo">
+        <div class="footer-container">
+            <ul class="footer-nav">
+                <li><a href="https://regierung.gurkistan.org">Zur Hauptseite</a></li>
+                <li><a href="https://alexgaming.is-a.dev/impressum">Impressum</a></li>
+                <li><a href="https://alexgaming.is-a.dev/privacy/">Datenschutz</a></li>
+            </ul>
+            <p>&copy; 2026 Das Bundeskanzleramt von Gurkistan.</p>
+        </div>
+    </footer>
+</body>
+</html>
