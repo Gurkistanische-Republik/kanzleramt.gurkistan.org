@@ -27,6 +27,38 @@
         .back-link { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-weight: 600; }
         .back-link:hover { text-decoration: underline; }
     </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "GovernmentOrganization",
+      "@id": "https://regierung.gurkistan.org/#organization",
+      "name": "Regierung von Gurkistan",
+      "url": "https://regierung.gurkistan.org",
+      "logo": "https://raw.githubusercontent.com/dotgurkistan/archive/refs/heads/main/bilder/Gurkistan-128.png",
+      "leader": {
+        "@type": "Person",
+        "name": "Plankton"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "name": "Diskrete Archive | Bundeskanzleramt Gurkistan",
+      "url": "https://kanzleramt.gurkistan.org/diskrete",
+      "about": "Verschluesselte und vertrauliche Unterlagen aus dem Kanzleramt von Gurkistan",
+      "publisher": {
+        "@id": "https://regierung.gurkistan.org/#organization"
+      },
+      "isPartOf": {
+        "@type": "WebPage",
+        "name": "Bundeskanzleramt",
+        "url": "https://kanzleramt.gurkistan.org"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
     <div class="decree-container" id="decree-view">
